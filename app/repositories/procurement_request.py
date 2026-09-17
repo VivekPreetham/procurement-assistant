@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.models.procurement_request import ProcurementRequest
@@ -14,3 +15,18 @@ def create_procurement_request(
     db.refresh(procurement_request)
 
     return procurement_request
+
+def get_procurement_requests(
+    db: Session,
+) -> list[ProcurementRequest]:
+    statement = select(ProcurementRequest).order_by(
+        ProcurementRequest.created_at.desc()
+    )
+
+    return list(db.scalars(statement).all())
+
+def get_procurement_request(
+    db: Session,
+    request_id: int,
+) -> ProcurementRequest | None:
+    return db.get(ProcurementRequest, request_id)
