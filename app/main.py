@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.api.routes.health import router as health_router
+from app.api.routes.procurement_requests import router as procurement_request_router
 from app.core.config import get_settings
 
 
@@ -13,6 +14,7 @@ def create_app() -> FastAPI:
     )
 
     app.include_router(health_router)
+    app.include_router(procurement_request_router)
 
     return app
 
