@@ -55,3 +55,22 @@ def calculate_annual_subscription(
         "annual_cost_per_subscription": annual_cost_per_subscription,
         "total_annual_cost": total_annual_cost,
     }
+
+
+def convert_currency(
+    amount: Decimal,
+    exchange_rate: Decimal,
+) -> dict[str, Decimal]:
+    if amount < 0:
+        raise ValueError("Amount cannot be negative.")
+
+    if exchange_rate <= 0:
+        raise ValueError("Exchange rate must be greater than zero.")
+
+    converted_amount = amount * exchange_rate
+
+    return {
+        "amount": amount,
+        "exchange_rate": exchange_rate,
+        "converted_amount": converted_amount,
+    }

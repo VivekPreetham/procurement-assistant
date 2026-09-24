@@ -5,14 +5,15 @@ from fastapi import APIRouter
 from app.schemas.calculations import (
     AnnualSubscriptionResponse,
     BudgetUtilizationResponse,
+    CurrencyConversionResponse,
     GSTCalculationResponse,
 )
 from app.tools.calculations import (
-    calculate_gst,
+    calculate_annual_subscription,
     calculate_budget_utilization,
-    calculate_annual_subscription
-) 
-
+    calculate_gst,
+    convert_currency,
+)
 router = APIRouter(
     prefix="/calculations",
     tags=["calculations"],
@@ -64,3 +65,19 @@ async def calculate_annual_subscription_endpoint(
     )
 
     return AnnualSubscriptionResponse(**result)
+
+
+@router.post(
+    "/currency-conversion",
+    response_model=CurrencyConversionResponse,
+)
+async def convert_currency_endpoint(
+    amount: Decimal,
+    exchange_rate: Decimal,
+) -> CurrencyConversionResponse:
+    result = convert_currency(
+        amount=amount,
+        exchange_rate=exchange_rate,
+    )
+
+    return CurrencyConversionResponse(**result)

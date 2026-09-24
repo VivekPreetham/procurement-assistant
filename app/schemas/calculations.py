@@ -21,3 +21,9 @@ class AnnualSubscriptionResponse(BaseModel):
     subscription_count: Decimal
     annual_cost_per_subscription: Decimal
     total_annual_cost: Decimal
+
+
+class CurrencyConversionResponse(BaseModel):
+    amount: Decimal
+    exchange_rate: Decimal
+    converted_amount: Decimal
