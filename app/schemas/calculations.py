@@ -14,3 +14,10 @@ class BudgetUtilizationResponse(BaseModel):
     used_budget: Decimal
     remaining_budget: Decimal
     utilization_percentage: Decimal
+
+
+class AnnualSubscriptionResponse(BaseModel):
+    monthly_cost: Decimal
+    subscription_count: Decimal
+    annual_cost_per_subscription: Decimal
+    total_annual_cost: Decimal

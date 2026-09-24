@@ -34,3 +34,24 @@ def calculate_budget_utilization(
         "remaining_budget": remaining_budget,
         "utilization_percentage": utilization_percentage
     }
+
+def calculate_annual_subscription(
+        monthly_cost: Decimal,
+        subscription_count: int = 1,
+) -> dict[str, Decimal]:
+    if monthly_cost < 0:
+        raise ValueError("Monthly cost cannot be negative")
+
+    if subscription_count < 0:
+        raise ValueError("Subscription count must be greater than zero")
+
+    annual_cost_per_subscription = monthly_cost * Decimal("12")
+
+    total_annual_cost = ( annual_cost_per_subscription * Decimal(subscription_count))
+
+    return {
+        "monthly_cost": monthly_cost,
+        "subscription_count": subscription_count,
+        "annual_cost_per_subscription": annual_cost_per_subscription,
+        "total_annual_cost": total_annual_cost,
+    }

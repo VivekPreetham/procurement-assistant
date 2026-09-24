@@ -3,12 +3,14 @@ from decimal import Decimal
 from fastapi import APIRouter
 
 from app.schemas.calculations import (
-    GSTCalculationResponse,
+    AnnualSubscriptionResponse,
     BudgetUtilizationResponse,
+    GSTCalculationResponse,
 )
 from app.tools.calculations import (
     calculate_gst,
-    calculate_budget_utilization
+    calculate_budget_utilization,
+    calculate_annual_subscription
 ) 
 
 router = APIRouter(
@@ -46,3 +48,19 @@ async def calculate_budget_utilization_endpoint(
     )
 
     return BudgetUtilizationResponse(**result)
+
+
+@router.post(
+    "/annual-subscription",
+    response_model=AnnualSubscriptionResponse,
+)
+async def calculate_annual_subscription_endpoint(
+    monthly_cost: Decimal,
+    subscription_count: int = 1,
+) -> AnnualSubscriptionResponse:
+    result = calculate_annual_subscription(
+        monthly_cost=monthly_cost,
+        subscription_count=subscription_count,
+    )
+
+    return AnnualSubscriptionResponse(**result)
