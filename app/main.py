@@ -7,6 +7,7 @@ from app.api.routes.compliance import (
 )
 from app.api.routes.calculations import router as calculations_router
 from app.api.routes.tools import router as tools_router
+from app.api.routes.manager_summary import router as manager_summary_router
 from app.core.config import get_settings
 
 
@@ -23,6 +24,7 @@ def create_app() -> FastAPI:
     app.include_router(compliance_router)
     app.include_router(calculations_router)
     app.include_router(tools_router)
+    app.include_router(manager_summary_router)
 
     return app
 
